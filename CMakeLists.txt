@@ -10,9 +10,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include(sanitizers.cmake)
 include(doctest.cmake)
 
-include_directories(includes)
-
 enable_testing()
 
 add_subdirectory(src)
 add_subdirectory(test)
+
+add_executable(main main.cpp)
+target_link_libraries(main PRIVATE stochastic_simulation_lib)
