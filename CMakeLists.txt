@@ -10,7 +10,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include(sanitizers.cmake)
 include(doctest.cmake)
 
-include_directories(include)
+include_directories(includes)
 
 enable_testing()
 
