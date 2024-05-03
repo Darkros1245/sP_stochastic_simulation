@@ -12,8 +12,6 @@ include(doctest.cmake)
 
 enable_testing()
 
-add_subdirectory(src)
-add_subdirectory(test)
-
-add_executable(main main.cpp)
-target_link_libraries(main PRIVATE stochastic_simulation_lib)
+add_subdirectory("lib/src")
+add_subdirectory("bin/src")
+add_subdirectory("test")

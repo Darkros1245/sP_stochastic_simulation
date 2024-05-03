@@ -1,0 +1,5 @@
+add_executable(main "main.cpp" "circadian_rhythm.cpp")
+
+target_include_directories(main PRIVATE "../include")
+
+target_link_libraries(main PRIVATE stochastic_simulation_lib)
