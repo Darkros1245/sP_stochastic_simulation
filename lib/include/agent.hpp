@@ -1,27 +1,25 @@
 #ifndef AGENT_H
 #define AGENT_H
 
-#include "enviroment.hpp"
+#include "intrinsic.hpp"
 #include <string>
 
 namespace stochastic {
+	class Expr;
+	class Reaction_rule;
+
 	class Agent {
 	private:
 		std::string _name;
-		int _quantity;
 
 	public:
-		Agent(std::string const& name, int quantity): _name(name), _quantity(quantity) {};
+		explicit Agent(std::string const& name): _name{name} {};
 		int test(int num);
 
-		int get_quantity() const;
-		void inc_quantity();
-		void dec_quantity();
+		std::string get_name() const;
 
-		Agent operator+(Agent const& other) const;
-		Agent operator>>(int delta) const;
-		Agent operator>>=(Agent const& other) const;
-		Agent operator>>=(Enviroment const& env) const;
+		Expr operator+(Agent const& agent) const;
+		Reaction_rule operator>>(Intrinsic intrinsic) const;
 	};
 }
 

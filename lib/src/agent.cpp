@@ -1,20 +1,22 @@
 #include "agent.hpp"
+#include "expr.hpp"
 
 namespace stochastic {
 	int Agent::test(int num) {
 		return num + num;
 	}
 
-	int Agent::get_quantity() const {
-		return this->_quantity;
+	std::string Agent::get_name() const {
+		return this->_name;
 	}
 
-	void Agent::inc_quantity() {
-		this->_quantity++;
+	Expr Agent::operator+(Agent const& agent) const {
+		Expr expr{};
+		return { expr + *this + agent };
 	}
 
-	void Agent::dec_quantity() {
-		this->_quantity--;
+	Reaction_rule Agent::operator>>(Intrinsic intrinsic) const {
+		return { { *this }, intrinsic, {} };
 	}
 }
 
