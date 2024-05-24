@@ -1,3 +1,8 @@
-add_library(stochastic_simulation_lib STATIC "agent.cpp" "expr.cpp" "intrinsic.cpp" "pretty_printer.cpp" "reaction_rule.cpp" "vessel.cpp")
+include(matplotplusplus.cmake)
+
+add_library(stochastic_simulation_lib STATIC "agent.cpp" "expr.cpp" "intrinsic.cpp" "reaction_rule.cpp")
 target_include_directories(stochastic_simulation_lib PUBLIC "../include")
 target_include_directories(stochastic_simulation_lib PUBLIC "../exceptions")
+
+target_link_libraries(stochastic_simulation_lib PUBLIC matplot)
+target_link_libraries(stochastic_simulation_lib PUBLIC libcoro)

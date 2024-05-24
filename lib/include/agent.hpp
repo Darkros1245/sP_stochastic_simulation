@@ -16,7 +16,7 @@ namespace stochastic {
 		explicit Agent(std::string const& name): _name{name} {};
 		int test(int num);
 
-		std::string get_name() const;
+		[[nodiscard]] std::string get_name() const noexcept;
 
 		Expr operator+(Agent const& agent) const;
 		Reaction_rule operator>>(Intrinsic intrinsic) const;

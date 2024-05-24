@@ -6,7 +6,7 @@ namespace stochastic {
 		return num + num;
 	}
 
-	std::string Agent::get_name() const {
+	std::string Agent::get_name() const noexcept {
 		return this->_name;
 	}
 

@@ -16,14 +16,14 @@ namespace stochastic {
 	public:
 		void insert(Key const& key, Value const& value) {
 			if (this->_map.contains(key))
-				throw Duplicate_key_exception{std::string{"The provided key already exists"}};
+				throw Duplicate_key_exception<std::string>{std::string{"The provided key already exists"}, key};
 			this->_map.insert({key, value});
 		
 		}
 
 		Value& get_value(Key const& key) {
 			if (!this->_map.contains(key))
-				throw No_exist_exception{std::string{"The provided key does not exist"}};
+				throw No_exist_exception<std::string>{std::string{"The provided key does not exist"}, key};
 			return this->_map[key];
 		}
 	};

@@ -8,6 +8,7 @@ namespace stochastic {
 
 	public:
 		Intrinsic(double rate): _rate{rate} {}
+		
 		double get_rate() const;
 		double operator*(double lhs) const;
 	};

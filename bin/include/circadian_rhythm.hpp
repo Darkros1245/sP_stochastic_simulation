@@ -1,7 +1,9 @@
+#include <string>
+
 #include "vessel.hpp"
 #include "expr.hpp"
 
-stochastic::Vessel circadian_rhythm() {
+stochastic::Vessel<std::string, int> circadian_rhythm() {
 	const auto alphaA = 50;
 	const auto alpha_A = 500;
 	const auto alphaR = 0.01;
@@ -17,7 +19,7 @@ stochastic::Vessel circadian_rhythm() {
 	const auto deltaMR = 0.5;
 	const auto thetaA = 50;
 	const auto thetaR = 100;
-	auto v = stochastic::Vessel{"Circadian Rhythm"};
+	auto v = stochastic::Vessel<std::string, int>{"Circadian Rhythm"};
 	const auto env = v.environment();
 	const auto DA = v.add("DA", 1);
 	const auto D_A = v.add("D_A", 0);

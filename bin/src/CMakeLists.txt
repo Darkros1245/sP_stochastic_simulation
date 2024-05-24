@@ -1,4 +1,4 @@
-add_executable(main "main.cpp" "circadian_rhythm.cpp")
+add_executable(main "main.cpp")
 
 target_include_directories(main PRIVATE "../include")
 
