@@ -1,37 +1,64 @@
+#include <algorithm>
+#include <iostream>
 #include <matplot/matplot.h>
 #include <matplot/freestanding/plot.h>
+#include <ostream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "circadian_rhythm.hpp"
+#include "covid-19.hpp"
+#include "exponential_decay.hpp"
+#include "network_graph_printer.hpp"
 #include "pretty_printer.hpp"
 #include "vessel.hpp"
-#include "covid-19.hpp"
 
-void run_circadian_rhythm_simulation();
-void run_seihr_simulation();
+void run_circadian_rhythm_simulation(int time);
+void run_seihr_simulation(int population, int time);
+void run_exponential_decay_simulation(int A_amount, int B_amount, int C_amount, int time);
+void get_hospitalization_peak(int population, int time);
 
 int main() {
-	run_circadian_rhythm_simulation();
-	//run_seihr_simulation();
+	auto time = 100;
+	const auto Nsmall = 10000;
+	const auto Nnj = 589755;
+	const auto Ndk = 5822763;
+	run_circadian_rhythm_simulation(time);
+	
+	//run_seihr_simulation(Nsmall, time);
+
+	//get_hospitalization_peak(Nnj, time);
+	//get_hospitalization_peak(Ndk, time);
+
+	/*time = 1500;
+
+	// A(0)=100, B(0)=0 , C=1
+	run_exponential_decay_simulation(100, 0, 1, time);
+	// A(0)=100, B(0)=0 , C=2
+	run_exponential_decay_simulation(100, 0, 2, time);
+	// A(0)=50 , B(0)=50, C=1
+	run_exponential_decay_simulation(50, 50, 1, time);*/
 	
 	return 0;
 }
 
-void run_circadian_rhythm_simulation() {
-	stochastic::Pretty_printer<std::string, int> pp {};
-	
+void run_circadian_rhythm_simulation(int time) {
 	auto circadian_vessel = circadian_rhythm();
+
+	circadian_vessel.print(stochastic::Pretty_printer<std::string, int>{});
+	circadian_vessel.print(stochastic::Network_graph<std::string, int>{ "network_graphs/test.dot" });
+	return;
 
 	std::vector<double> X_coord;
 	std::vector<double> C_coord;
 	std::vector<double> A_coord;
 	std::vector<double> R_coord;
 
-	std::vector<std::string> to_observe = {"C", "A", "R"};
+	const std::vector<std::string> to_observe = { "C", "A", "R" };
 
-	for (auto & observed : circadian_vessel.simulate(100, to_observe)) {
-		X_coord.push_back(observed["TIME"]);
+	for (auto & [time, observed] : circadian_vessel.simulate(time, to_observe)) {
+		X_coord.push_back(time);
 		C_coord.push_back(observed["C"]);
 		A_coord.push_back(observed["A"]);
 		R_coord.push_back(observed["R"]);
@@ -41,14 +68,10 @@ void run_circadian_rhythm_simulation() {
 				  X_coord, A_coord, 
 				  X_coord, R_coord);
 	matplot::show();
-
-	pp(circadian_vessel);
 }
 
-void run_seihr_simulation() {
-	stochastic::Pretty_printer<std::string, int> pp {};
-
-	auto covid_vessel = seihr(10000);
+void run_seihr_simulation(int population, int time) {
+	auto covid_vessel = seihr(population);
 
 	std::vector<double> X_coord;
 	std::vector<double> S_coord;
@@ -57,10 +80,10 @@ void run_seihr_simulation() {
 	std::vector<double> H_coord;
 	std::vector<double> R_coord;
 
-	std::vector<std::string> to_observe = {"S", "E", "I", "H", "R"};
+	const std::vector<std::string> to_observe { "S", "E", "I", "H", "R" };
 
-	for (auto & observed : covid_vessel.simulate(100, to_observe)) {
-		X_coord.push_back(observed["TIME"]);
+	for (auto & [time, observed] : covid_vessel.simulate(time, to_observe)) {
+		X_coord.push_back(time);
 		S_coord.push_back(observed["S"]);
 		E_coord.push_back(observed["E"]);
 		I_coord.push_back(observed["I"]);
@@ -74,6 +97,42 @@ void run_seihr_simulation() {
 				  X_coord, H_coord, 
 				  X_coord, R_coord);
 	matplot::show();
+}
 
-	pp(covid_vessel);
+void run_exponential_decay_simulation(int A_amount, int B_amount, int C_amount, int time) {
+	auto exponential_decay_vessel = exponential_decay(A_amount, B_amount, C_amount);
+
+	std::vector<double> X_coord;
+	std::vector<double> A_coord;
+	std::vector<double> B_coord;
+	std::vector<double> C_coord;
+
+	const std::vector<std::string> to_observe = { "A", "B", "C" };
+
+	for (auto & [time, observed] : exponential_decay_vessel.simulate(time, to_observe)) {
+		X_coord.push_back(time);
+		A_coord.push_back(observed["A"]);
+		B_coord.push_back(observed["B"]);
+		C_coord.push_back(observed["C"]);
+	}
+
+	matplot::plot(X_coord, A_coord, 
+				  X_coord, B_coord, 
+				  X_coord, C_coord);
+	matplot::show();
+}
+
+void get_hospitalization_peak(int population, int time) {
+	auto covid_vessel = seihr(population);
+	auto peak = -1;
+
+	const std::vector<std::string> to_observe { "H" };
+
+	for (auto & [_, observed] : covid_vessel.simulate(time, to_observe)) {
+		peak = std::max(peak, observed["H"]);
+	}
+
+	std::cout << "--------------------PEAK--------------------" << std::endl;
+	std::cout << "Max hospitalized agents: " << peak << std::endl;
+	std::cout << "--------------------------------------------" << std::endl;
 }

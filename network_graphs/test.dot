@@ -1,0 +1,104 @@
+digraph {
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+A -> I0
+DA[label="DA",shape="box",style="filled",fillcolor="cyan"];
+DA -> I0
+I0[label="1",shape="oval",style="filled",fillcolor="yellow"];
+D_A[label="D_A",shape="box",style="filled",fillcolor="cyan"];
+I0 -> D_A
+D_A[label="D_A",shape="box",style="filled",fillcolor="cyan"];
+D_A -> I1
+I1[label="50",shape="oval",style="filled",fillcolor="yellow"];
+DA[label="DA",shape="box",style="filled",fillcolor="cyan"];
+I1 -> DA
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+I1 -> A
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+A -> I2
+DR[label="DR",shape="box",style="filled",fillcolor="cyan"];
+DR -> I2
+I2[label="1",shape="oval",style="filled",fillcolor="yellow"];
+D_R[label="D_R",shape="box",style="filled",fillcolor="cyan"];
+I2 -> D_R
+D_R[label="D_R",shape="box",style="filled",fillcolor="cyan"];
+D_R -> I3
+I3[label="100",shape="oval",style="filled",fillcolor="yellow"];
+DR[label="DR",shape="box",style="filled",fillcolor="cyan"];
+I3 -> DR
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+I3 -> A
+D_A[label="D_A",shape="box",style="filled",fillcolor="cyan"];
+D_A -> I4
+I4[label="500",shape="oval",style="filled",fillcolor="yellow"];
+MA[label="MA",shape="box",style="filled",fillcolor="cyan"];
+I4 -> MA
+D_A[label="D_A",shape="box",style="filled",fillcolor="cyan"];
+I4 -> D_A
+DA[label="DA",shape="box",style="filled",fillcolor="cyan"];
+DA -> I5
+I5[label="50",shape="oval",style="filled",fillcolor="yellow"];
+MA[label="MA",shape="box",style="filled",fillcolor="cyan"];
+I5 -> MA
+DA[label="DA",shape="box",style="filled",fillcolor="cyan"];
+I5 -> DA
+D_R[label="D_R",shape="box",style="filled",fillcolor="cyan"];
+D_R -> I6
+I6[label="50",shape="oval",style="filled",fillcolor="yellow"];
+MR[label="MR",shape="box",style="filled",fillcolor="cyan"];
+I6 -> MR
+D_R[label="D_R",shape="box",style="filled",fillcolor="cyan"];
+I6 -> D_R
+DR[label="DR",shape="box",style="filled",fillcolor="cyan"];
+DR -> I7
+I7[label="0.01",shape="oval",style="filled",fillcolor="yellow"];
+MR[label="MR",shape="box",style="filled",fillcolor="cyan"];
+I7 -> MR
+DR[label="DR",shape="box",style="filled",fillcolor="cyan"];
+I7 -> DR
+MA[label="MA",shape="box",style="filled",fillcolor="cyan"];
+MA -> I8
+I8[label="50",shape="oval",style="filled",fillcolor="yellow"];
+MA[label="MA",shape="box",style="filled",fillcolor="cyan"];
+I8 -> MA
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+I8 -> A
+MR[label="MR",shape="box",style="filled",fillcolor="cyan"];
+MR -> I9
+I9[label="5",shape="oval",style="filled",fillcolor="yellow"];
+MR[label="MR",shape="box",style="filled",fillcolor="cyan"];
+I9 -> MR
+R[label="R",shape="box",style="filled",fillcolor="cyan"];
+I9 -> R
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+A -> I10
+R[label="R",shape="box",style="filled",fillcolor="cyan"];
+R -> I10
+I10[label="2",shape="oval",style="filled",fillcolor="yellow"];
+C[label="C",shape="box",style="filled",fillcolor="cyan"];
+I10 -> C
+C[label="C",shape="box",style="filled",fillcolor="cyan"];
+C -> I11
+I11[label="1",shape="oval",style="filled",fillcolor="yellow"];
+R[label="R",shape="box",style="filled",fillcolor="cyan"];
+I11 -> R
+A[label="A",shape="box",style="filled",fillcolor="cyan"];
+A -> I12
+I12[label="1",shape="oval",style="filled",fillcolor="yellow"];
+env[label="env",shape="box",style="filled",fillcolor="purple"];
+I12 -> env
+R[label="R",shape="box",style="filled",fillcolor="cyan"];
+R -> I13
+I13[label="0.2",shape="oval",style="filled",fillcolor="yellow"];
+env[label="env",shape="box",style="filled",fillcolor="purple"];
+I13 -> env
+MA[label="MA",shape="box",style="filled",fillcolor="cyan"];
+MA -> I14
+I14[label="10",shape="oval",style="filled",fillcolor="yellow"];
+env[label="env",shape="box",style="filled",fillcolor="purple"];
+I14 -> env
+MR[label="MR",shape="box",style="filled",fillcolor="cyan"];
+MR -> I15
+I15[label="0.5",shape="oval",style="filled",fillcolor="yellow"];
+env[label="env",shape="box",style="filled",fillcolor="purple"];
+I15 -> env
+}

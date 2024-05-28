@@ -1,6 +1,7 @@
 #ifndef VESSEL_H
 #define VESSEL_H
 
+#include <iostream>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -8,7 +9,9 @@
 #include <coro/coro.hpp>
 #include <coro/generator.hpp>
 #include <algorithm>
+#include <tuple>
 
+#include "printer.hpp"
 #include "reaction_rule.hpp"
 #include "agent.hpp"
 #include "enviroment.hpp"
@@ -48,10 +51,10 @@ namespace stochastic {
 			this->_reaction_rules.push_back(reaction_rule);
 		}
 
-		coro::generator<std::unordered_map<Key, double>> simulate(int end_time, std::vector<Key> const& to_observe) {
+		coro::generator<std::tuple<double, std::unordered_map<Key, int>>> simulate(int end_time, std::vector<Key> const& to_observe) {
 			auto current_time = 0.0;
 
-			std::unordered_map<Key, double> observed = {{"TIME", current_time}};
+			std::unordered_map<Key, int> observed = {{"TIME", current_time}};
 
 			try {
 				for (auto const& observe : to_observe) {
@@ -61,8 +64,7 @@ namespace stochastic {
 				throw No_exist_exception<std::string>{std::string{exception.what()} + ": " + exception.get_key(), exception.get_key()};
 			}
 			
-
-			co_yield observed;
+			co_yield { current_time, observed };
 
 			while (current_time <= end_time) {
 				for (auto & reaction_rule : this->_reaction_rules) {
@@ -76,6 +78,7 @@ namespace stochastic {
 						return a.get_delay() < b.get_delay(); 
 					}
 				);
+				
 				current_time += reaction->get_delay();
 
 				auto & st = this->_st;
@@ -90,16 +93,18 @@ namespace stochastic {
 					}
 				}
 
-				observed["TIME"] = current_time;
-
 				for (auto const& observe : to_observe) {
 					observed[observe] = this->_st.get_value(observe);
 				}
 
-				co_yield observed;
+				co_yield { current_time, observed };
 			}
 
 			co_return;
+		}
+
+		void print(Printer<Key, Value> const& printer) {
+			printer(*this);
 		}
 	};
 }

@@ -3,7 +3,7 @@
 #include "vessel.hpp"
 #include "expr.hpp"
 
-stochastic::Vessel<std::string, int> circadian_rhythm() {
+inline stochastic::Vessel<std::string, int> circadian_rhythm() {
 	const auto alphaA = 50;
 	const auto alpha_A = 500;
 	const auto alphaR = 0.01;

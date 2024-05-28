@@ -43,8 +43,8 @@ namespace stochastic {
 		std::mt19937_64 gen(rd());
 
 		std::exponential_distribution<> dist(
-		    this->_intrinsic * std::accumulate(
-		        this->_inputs.begin(), this->_inputs.end(), 1,
+		    std::accumulate(
+		        this->_inputs.begin(), this->_inputs.end(), this->_intrinsic.get_rate(),
 		        [&st](auto product, const auto& agent) {
 		            return product * st.get_value(agent.get_name());
 		        }

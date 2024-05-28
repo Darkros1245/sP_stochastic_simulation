@@ -5,7 +5,7 @@
 #include "expr.hpp"
 #include "vessel.hpp"
 
-stochastic::Vessel<std::string, int> seihr(uint32_t N) {
+inline stochastic::Vessel<std::string, int> seihr(uint32_t N) {
 	auto v = stochastic::Vessel<std::string, int>{"COVID19 SEIHR: " + std::to_string(N)};
 	const auto eps = 0.0009;							// initial fraction of infectious
 	const auto I0 = size_t(std::round(eps * N));		// initial infectious

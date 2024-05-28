@@ -1,5 +1,5 @@
-#ifndef CONSTANT_H
-#define CONSTANT_H
+#ifndef INTRINSIC_H
+#define INTRINSIC_H
 
 namespace stochastic {
 	class Intrinsic {
@@ -10,7 +10,6 @@ namespace stochastic {
 		Intrinsic(double rate): _rate{rate} {}
 		
 		double get_rate() const;
-		double operator*(double lhs) const;
 	};
 }
 
