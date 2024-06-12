@@ -1,16 +1,20 @@
 #ifndef INTRINSIC_H
 #define INTRINSIC_H
 
-namespace stochastic {
-	class Intrinsic {
-	private:
-		const double _rate;
+namespace stochastic
+{
+    class Intrinsic
+    {
+    private:
+        const double _rate;
 
-	public:
-		Intrinsic(double rate): _rate{rate} {}
-		
-		double get_rate() const;
-	};
-}
+    public:
+        Intrinsic(double rate): _rate{rate} {}
+
+        double get_rate() const;
+
+        bool operator==(Intrinsic const& other) const;
+    };
+}  // namespace stochastic
 
 #endif

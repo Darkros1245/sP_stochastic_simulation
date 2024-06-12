@@ -1,27 +1,30 @@
 #ifndef AGENT_H
 #define AGENT_H
 
-#include "intrinsic.hpp"
 #include <string>
 
-namespace stochastic {
-	class Expr;
-	class Reaction_rule;
+#include "intrinsic.hpp"
 
-	class Agent {
-	private:
-		std::string _name;
+namespace stochastic
+{
+    class Expr;
+    class Reaction_rule;
 
-	public:
-		explicit Agent(std::string const& name): _name{name} {};
-		int test(int num);
+    class Agent
+    {
+    private:
+        std::string _name;
 
-		[[nodiscard]] std::string get_name() const noexcept;
+    public:
+        explicit Agent(std::string const& name): _name{name} {};
 
-		Expr operator+(Agent const& agent) const;
-		Reaction_rule operator>>(Intrinsic intrinsic) const;
-	};
-}
+        [[nodiscard]] std::string get_name() const noexcept;
 
+        Expr operator+(Agent const& agent) const;
+        Reaction_rule operator>>(Intrinsic intrinsic) const;
+
+        bool operator==(Agent const& other) const;
+    };
+}  // namespace stochastic
 
 #endif
