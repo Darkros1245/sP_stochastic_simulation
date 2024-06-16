@@ -29,16 +29,14 @@ namespace stochastic
         std::vector<Agent>& get_products();
         Intrinsic get_intrinsic() const;
 
+        // Requirement 1: The library should overload operators to support the reaction rule typesetting directly in C++ code.
         Reaction_rule operator>>=(Expr const& expr);
         Reaction_rule operator>>=(Agent const& agent);
         Reaction_rule operator>>=(Enviroment);
 
-        template <typename Key, typename Value>
-        void set_delay(Symbol_table<Key, Value> st)
+        template <Hashable Key, Numeric Value>
+        void set_delay(Symbol_table<Key, Value> st, std::mt19937_64 & gen)
         {
-            std::random_device rd;
-            std::mt19937_64 gen(rd());
-
             std::exponential_distribution<> dist(std::accumulate(
                 this->_inputs.begin(), this->_inputs.end(), this->_intrinsic.get_rate(),
                 [&st](auto product, const auto& agent) { return product * st.get_value(agent.get_name()); }));

@@ -5,6 +5,9 @@
 
 namespace stochastic
 {
+    // Requirement 3: Implement a generic symbol table to store and lookup objects of user-defined key and value types. Support
+    // failure cases when a) the table does not contain a looked up symbol, b) the table already contains a symbol that
+    // is being added. Demonstrate the usage of the symbol table with the reactants (names and initial counts).
     template <typename TKey>
     class No_exist_exception : public std::runtime_error
     {
@@ -13,7 +16,9 @@ namespace stochastic
         TKey _key;
 
     public:
-        explicit No_exist_exception(std::string const& msg, TKey const& key): std::runtime_error{msg}, _msg{msg}, _key{key} {}
+        explicit No_exist_exception(std::string const& msg, TKey const& key):
+            std::runtime_error{msg}, _msg{msg}, _key{key}
+        {}
         const char* what() const noexcept override { return this->_msg.c_str(); }
 
         TKey get_key() { return this->_key; }

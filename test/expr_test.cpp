@@ -3,6 +3,7 @@
 #include "agent.hpp"
 #include "expr.hpp"
 
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
 TEST_CASE("Expr_test")
 {
     SUBCASE("Expr_get_agents_test")

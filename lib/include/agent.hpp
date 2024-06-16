@@ -20,6 +20,7 @@ namespace stochastic
 
         [[nodiscard]] std::string get_name() const noexcept;
 
+        // Requirement 1: The library should overload operators to support the reaction rule typesetting directly in C++ code.
         Expr operator+(Agent const& agent) const;
         Reaction_rule operator>>(Intrinsic intrinsic) const;
 

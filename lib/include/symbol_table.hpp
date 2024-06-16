@@ -1,6 +1,9 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
 
+#include <concepts>
+#include <cstddef>
+#include <type_traits>
 #include <unordered_map>
 #include <string>
 
@@ -9,7 +12,18 @@
 
 namespace stochastic
 {
-    template <typename Key, typename Value>
+    template<typename T>
+    concept Numeric = std::is_arithmetic_v<T>;
+
+    template<typename T>
+    concept Hashable = requires(T a) {
+        { std::hash<T>{}(a) } -> std::same_as<std::size_t>;
+    };
+
+    // Requirement 3: Implement a generic symbol table to store and lookup objects of user-defined key and value types. Support
+    // failure cases when a) the table does not contain a looked up symbol, b) the table already contains a symbol that
+    // is being added. Demonstrate the usage of the symbol table with the reactants (names and initial counts).
+    template <Hashable Key, Numeric Value>
     class Symbol_table
     {
     private:

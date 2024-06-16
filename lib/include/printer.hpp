@@ -1,14 +1,16 @@
 #ifndef PRINTER_HPP
 #define PRINTER_HPP
 
+#include "symbol_table.hpp"
 #include <ostream>
 
 namespace stochastic
 {
-    template <typename Key, typename Value>
+    template <Hashable Key, Numeric Value>
     class Vessel;
 
-    template <typename Key, typename Value>
+    // Requirement 2: Provide pretty-printing of the reaction network in a) human readable format and b) network graph (e.g. Fig. 4).
+    template <Hashable Key, Numeric Value>
     class Printer
     {
     public:

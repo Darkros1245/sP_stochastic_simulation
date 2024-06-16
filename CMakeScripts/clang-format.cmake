@@ -1,4 +1,4 @@
-file(GLOB_RECURSE ALL_SOURCE_FILES ${CMAKE_SOURCE_DIR}/*.cpp ${CMAKE_SOURCE_DIR}/*.hpp)
+file(GLOB_RECURSE ALL_SOURCE_FILES "../src/*.cpp" "../src/*.hpp" "../lib/*.cpp" "../lib/*.hpp" "../test/*.cpp")
 
 # Run clang-format on all source files
 execute_process(

@@ -4,6 +4,7 @@
 #include <format>
 
 #include "printer.hpp"
+#include "symbol_table.hpp"
 #include "vessel.hpp"
 #include "agent.hpp"
 #include "intrinsic.hpp"
@@ -11,7 +12,8 @@
 
 namespace stochastic
 {
-    template <typename Key, typename Value>
+    // Requirement 2: Provide pretty-printing of the reaction network in a) human readable format and b) network graph (e.g. Fig. 4).
+    template <Hashable Key, Numeric Value>
     class Network_graph : public Printer<Key, Value>
     {
     public:

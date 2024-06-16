@@ -2,6 +2,7 @@
 #include <ranges>
 #include <string>
 #include <vector>
+#include <random>
 
 #include "agent.hpp"
 #include "enviroment.hpp"
@@ -10,6 +11,7 @@
 #include "reaction_rule.hpp"
 #include "vessel.hpp"
 
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
 TEST_CASE("Reaction_rule_test")
 {
     SUBCASE("Reaction_rule_get_input_test")
@@ -95,7 +97,10 @@ TEST_CASE("Reaction_rule_test")
         const std::vector<stochastic::Agent> outputs{};
         stochastic::Reaction_rule rr{inputs, intrinsic, outputs};
 
-        rr.set_delay(vessel.get_symbol_table());
+        std::random_device rd;
+        std::mt19937_64 gen(rd());
+
+        rr.set_delay(vessel.get_symbol_table(), gen);
 
         CHECK(rr.get_delay() >= 0);
     }

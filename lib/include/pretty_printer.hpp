@@ -10,7 +10,8 @@
 
 namespace stochastic
 {
-    template <typename Key, typename Value>
+    // Requirement 2: Provide pretty-printing of the reaction network in a) human readable format and b) network graph (e.g. Fig. 4).
+    template <Hashable Key, Numeric Value>
     class Pretty_printer : public Printer<Key, Value>
     {
     public:
@@ -25,7 +26,7 @@ namespace stochastic
             stream << " >> " << intrinsic.get_rate() << " >>= ";
         }
 
-        inline void operator()(Enviroment, std::ostream& stream) const { stream << "enviroment"; }
+        inline void operator()(Enviroment, std::ostream& stream) const { stream << "environment"; }
 
         inline void operator()(Vessel<Key, Value> const& vessel, std::ostream& stream) const override
         {

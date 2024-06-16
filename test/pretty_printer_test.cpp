@@ -7,6 +7,7 @@
 #include "pretty_printer.hpp"
 #include "symbol_table.hpp"
 
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
 TEST_CASE("Pretty_printer_test")
 {
     SUBCASE("Pretty_printer_agent_test_without_seperator")
@@ -53,14 +54,14 @@ TEST_CASE("Pretty_printer_test")
         CHECK(ss.str() == expected);
     }
 
-    SUBCASE("Pretty_printer_enviroment_test")
+    SUBCASE("Pretty_printer_environment_test")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
         stochastic::Enviroment const enviroment{};
         std::ostringstream ss;
         pp(enviroment, ss);
 
-        auto const expected = std::format("enviroment");
+        auto const expected = std::format("environment");
 
         CHECK(ss.str() == expected);
     }
@@ -90,7 +91,7 @@ TEST_CASE("Pretty_printer_test")
         CHECK(ss.str() == expected);
     }
 
-    SUBCASE("Pretty_printer_vessel_with_enviroment_test")
+    SUBCASE("Pretty_printer_vessel_with_environment_test")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
         stochastic::Vessel<std::string, int> vessel{""};
@@ -107,7 +108,7 @@ TEST_CASE("Pretty_printer_test")
         auto const expected = std::format("{}:{} + {}:{} >> {} >>= {}{}", agent1.get_name(),
                                           vessel.get_symbol_table().get_value(agent1.get_name()), agent2.get_name(),
                                           vessel.get_symbol_table().get_value(agent2.get_name()), intrinsic.get_rate(),
-                                          "enviroment", "\n");
+                                          "environment", "\n");
 
         CHECK(ss.str() == expected);
     }
