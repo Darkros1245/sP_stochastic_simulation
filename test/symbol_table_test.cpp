@@ -3,7 +3,8 @@
 
 #include "symbol_table.hpp"
 
-// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of
+// reaction rules).
 TEST_CASE("Symbol_table_test")
 {
     SUBCASE("Symbol_table_insert_and_get_value_no_exeption_test")

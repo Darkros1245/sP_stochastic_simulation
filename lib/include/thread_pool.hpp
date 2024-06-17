@@ -79,9 +79,9 @@ namespace stochastic
         }
 
         template <typename Fn, typename Out = std::invoke_result_t<Fn>>
-        std::vector<std::future<Out>> dispatch(Fn&& fn, const size_t& amount)
+        std::vector<std::future<Out>> dispatch(Fn&& fn, size_t const& amount)
         {
-            auto res = std::vector<std::future<Out>>( amount );
+            auto res = std::vector<std::future<Out>>(amount);
             for (auto& r : res) {
                 r = async(fn);
             }

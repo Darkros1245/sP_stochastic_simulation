@@ -6,12 +6,13 @@
 #include "expr.hpp"
 #include "intrinsic.hpp"
 
-// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of
+// reaction rules).
 TEST_CASE("Agent_test")
 {
     SUBCASE("Agent_get_name_test")
     {
-        std::string const name{"test"};
+        const std::string name{"test"};
         const stochastic::Agent agent{name};
 
         CHECK(agent.get_name() == name);

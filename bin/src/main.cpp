@@ -28,9 +28,9 @@ void get_hospitalization_average(int population, int time);
 int main()
 {
     auto time = 100;
-    auto const Nsmall = 10000;
-    auto const Nnj = 589755;
-    auto const Ndk = 5822763;
+    const auto Nsmall = 10000;
+    const auto Nnj = 589755;
+    const auto Ndk = 5822763;
 
     pretty_print_vessel(circadian_rhythm());
     print_network_graph(circadian_rhythm());
@@ -82,7 +82,7 @@ void run_circadian_rhythm_simulation(int time)
     std::vector<double> A_coord;
     std::vector<double> R_coord;
 
-    std::vector<std::string> const to_observe = {"C", "A", "R"};
+    const std::vector<std::string> to_observe = {"C", "A", "R"};
     for (auto & [current_time, observed] : circadian_vessel.simulate(time, to_observe)) {
         X_coord.push_back(current_time);
         C_coord.push_back(observed["C"]);
@@ -106,7 +106,7 @@ void run_seihr_simulation(int population, int time)
     std::vector<double> H_coord;
     std::vector<double> R_coord;
 
-    std::vector<std::string> const to_observe{"S", "E", "I", "H", "R"};
+    const std::vector<std::string> to_observe{"S", "E", "I", "H", "R"};
 
     for (auto & [current_time, observed] : covid_vessel.simulate(time, to_observe)) {
         X_coord.push_back(current_time);
@@ -131,7 +131,7 @@ void run_exponential_decay_simulation(int A_amount, int B_amount, int C_amount, 
     std::vector<double> B_coord;
     std::vector<double> C_coord;
 
-    std::vector<std::string> const to_observe = {"A", "B", "C"};
+    const std::vector<std::string> to_observe = {"A", "B", "C"};
     for (auto & [current_time, observed] : exponential_decay_vessel.simulate(time, to_observe)) {
         X_coord.push_back(current_time);
         A_coord.push_back(observed["A"]);
@@ -153,9 +153,9 @@ void get_hospitalization_peak(int population, int time)
 {
     auto covid_vessel = seihr(population);
     auto peak = -1;
-    auto const amount = 1;
+    const auto amount = 1;
 
-    std::vector<std::string> const to_observe{"H"};
+    const std::vector<std::string> to_observe{"H"};
 
     for (size_t i = 0; i < amount; ++i)
     {
@@ -179,7 +179,7 @@ void get_hospitalization_average(int population, int time)
     auto peak = -1;
     auto avg_peak = -1;
 
-    std::vector<std::string> const to_observe{"H"};
+    const std::vector<std::string> to_observe{"H"};
 
     for (auto & simulation_result : covid_vessel.simulate(time, to_observe, 100)) {
         for (auto & [_, observed] : simulation_result) {

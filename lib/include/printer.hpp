@@ -9,7 +9,8 @@ namespace stochastic
     template <Hashable Key, Numeric Value>
     class Vessel;
 
-    // Requirement 2: Provide pretty-printing of the reaction network in a) human readable format and b) network graph (e.g. Fig. 4).
+    // Requirement 2: Provide pretty-printing of the reaction network in a) human readable format and b) network graph
+    // (e.g. Fig. 4).
     template <Hashable Key, Numeric Value>
     class Printer
     {

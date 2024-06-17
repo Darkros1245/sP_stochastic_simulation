@@ -7,13 +7,14 @@
 #include "pretty_printer.hpp"
 #include "symbol_table.hpp"
 
-// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of
+// reaction rules).
 TEST_CASE("Pretty_printer_test")
 {
     SUBCASE("Pretty_printer_agent_test_without_seperator")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
-        stochastic::Agent const agent{"agent"};
+        const stochastic::Agent agent{"agent"};
         stochastic::Symbol_table<std::string, int> st{};
         st.insert("agent", 5);
         std::string seperator;
@@ -21,7 +22,7 @@ TEST_CASE("Pretty_printer_test")
         std::ostringstream ss;
         pp(agent, st, seperator, ss);
 
-        auto const expected = std::format("{}{}:{}", seperator, agent.get_name(), st.get_value(agent.get_name()), "\n");
+        const auto expected = std::format("{}{}:{}", seperator, agent.get_name(), st.get_value(agent.get_name()), "\n");
 
         CHECK(ss.str() == expected);
     }
@@ -29,7 +30,7 @@ TEST_CASE("Pretty_printer_test")
     SUBCASE("Pretty_printer_agent_test_with_seperator")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
-        stochastic::Agent const agent{"agent"};
+        const stochastic::Agent agent{"agent"};
         stochastic::Symbol_table<std::string, int> st{};
         st.insert("agent", 5);
         std::string seperator = "+";
@@ -37,7 +38,7 @@ TEST_CASE("Pretty_printer_test")
         std::ostringstream ss;
         pp(agent, st, seperator, ss);
 
-        auto const expected = std::format("{}{}:{}", seperator, agent.get_name(), st.get_value(agent.get_name()), "\n");
+        const auto expected = std::format("{}{}:{}", seperator, agent.get_name(), st.get_value(agent.get_name()), "\n");
 
         CHECK(ss.str() == expected);
     }
@@ -45,11 +46,11 @@ TEST_CASE("Pretty_printer_test")
     SUBCASE("Pretty_printer_intrinsic_test")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         std::ostringstream ss;
         pp(intrinsic, ss);
 
-        auto const expected = std::format(" >> {} >>= ", intrinsic.get_rate(), "\n");
+        const auto expected = std::format(" >> {} >>= ", intrinsic.get_rate(), "\n");
 
         CHECK(ss.str() == expected);
     }
@@ -57,11 +58,11 @@ TEST_CASE("Pretty_printer_test")
     SUBCASE("Pretty_printer_environment_test")
     {
         stochastic::Pretty_printer<std::string, int> pp{};
-        stochastic::Enviroment const enviroment{};
+        const stochastic::Enviroment enviroment{};
         std::ostringstream ss;
         pp(enviroment, ss);
 
-        auto const expected = std::format("environment");
+        const auto expected = std::format("environment");
 
         CHECK(ss.str() == expected);
     }
@@ -74,14 +75,14 @@ TEST_CASE("Pretty_printer_test")
         auto agent2 = vessel.add("agent2", 2);
         auto agent3 = vessel.add("agent3", 3);
         auto agent4 = vessel.add("agent4", 4);
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         stochastic::Reaction_rule rr{(agent1 + agent2) >> intrinsic >>= agent3 + agent4};
         vessel.add(rr);
         std::ostringstream ss;
 
         pp(vessel, ss);
 
-        auto const expected =
+        const auto expected =
             std::format("{}:{} + {}:{} >> {} >>= {}:{} + {}:{}{}", agent1.get_name(),
                         vessel.get_symbol_table().get_value(agent1.get_name()), agent2.get_name(),
                         vessel.get_symbol_table().get_value(agent2.get_name()), intrinsic.get_rate(), agent3.get_name(),
@@ -98,14 +99,14 @@ TEST_CASE("Pretty_printer_test")
         auto agent1 = vessel.add("agent1", 1);
         auto agent2 = vessel.add("agent2", 2);
         stochastic::Enviroment enviroment{};
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         stochastic::Reaction_rule rr{(agent1 + agent2) >> intrinsic >>= enviroment};
         vessel.add(rr);
         std::ostringstream ss;
 
         pp(vessel, ss);
 
-        auto const expected = std::format("{}:{} + {}:{} >> {} >>= {}{}", agent1.get_name(),
+        const auto expected = std::format("{}:{} + {}:{} >> {} >>= {}{}", agent1.get_name(),
                                           vessel.get_symbol_table().get_value(agent1.get_name()), agent2.get_name(),
                                           vessel.get_symbol_table().get_value(agent2.get_name()), intrinsic.get_rate(),
                                           "environment", "\n");

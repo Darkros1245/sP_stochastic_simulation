@@ -17,7 +17,8 @@ namespace stochastic
     public:
         [[nodiscard]] std::vector<Agent> get_agents() const noexcept;
 
-        // Requirement 1: The library should overload operators to support the reaction rule typesetting directly in C++ code.
+        // Requirement 1: The library should overload operators to support the reaction rule typesetting directly in C++
+        // code.
         Expr operator+(Agent const& agent);
         Reaction_rule operator>>(Intrinsic intrinsic);
     };

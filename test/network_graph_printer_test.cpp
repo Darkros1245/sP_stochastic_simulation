@@ -10,17 +10,18 @@
 #include "reaction_rule.hpp"
 #include "vessel.hpp"
 
-// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of reaction rules).
+// Requirement 9: Implement unit tests (e.g. test symbol table methods, their failure cases, and pretty-printing of
+// reaction rules).
 TEST_CASE("Network_graph_printer_test")
 {
     SUBCASE("Network_graph_printer_agent_test")
     {
         stochastic::Network_graph<std::string, int> ng{};
-        stochastic::Agent const agent{"agent"};
+        const stochastic::Agent agent{"agent"};
         std::ostringstream ss;
         ng(agent, ss);
 
-        auto const expected = std::format(R"({}[label="{}",shape="box",style="filled",fillcolor="cyan"];{})",
+        const auto expected = std::format(R"({}[label="{}",shape="box",style="filled",fillcolor="cyan"];{})",
                                           agent.get_name(), agent.get_name(), "\n");
 
         CHECK(ss.str() == expected);
@@ -29,12 +30,12 @@ TEST_CASE("Network_graph_printer_test")
     SUBCASE("Network_graph_printer_intrinsic_test")
     {
         stochastic::Network_graph<std::string, int> ng{};
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         std::ostringstream ss;
         int num = 0;
         ng(intrinsic, num, ss);
 
-        auto const expected = std::format(R"(I{}[label="{}",shape="oval",style="filled",fillcolor="yellow"];{})", num,
+        const auto expected = std::format(R"(I{}[label="{}",shape="oval",style="filled",fillcolor="yellow"];{})", num,
                                           intrinsic.get_rate(), "\n");
 
         CHECK(ss.str() == expected);
@@ -43,11 +44,11 @@ TEST_CASE("Network_graph_printer_test")
     SUBCASE("Network_graph_printer_enviroment_test")
     {
         stochastic::Network_graph<std::string, int> ng{};
-        stochastic::Enviroment const enviroment{};
+        const stochastic::Enviroment enviroment{};
         std::ostringstream ss;
         ng(enviroment, ss);
 
-        auto const expected =
+        const auto expected =
             std::format(R"({}[label="{}",shape="box",style="filled",fillcolor="purple"];{})", "env", "env", "\n");
 
         CHECK(ss.str() == expected);
@@ -61,7 +62,7 @@ TEST_CASE("Network_graph_printer_test")
         stochastic::Agent agent2{"agent2"};
         stochastic::Agent agent3{"agent3"};
         stochastic::Agent agent4{"agent4"};
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         stochastic::Reaction_rule rr{(agent1 + agent2) >> intrinsic >>= agent3 + agent4};
         vessel.add(rr);
         std::ostringstream ss;
@@ -69,7 +70,7 @@ TEST_CASE("Network_graph_printer_test")
 
         ng(vessel, ss);
 
-        auto const expected = "digraph {\n" +
+        const auto expected = "digraph {\n" +
                               std::format(R"({}[label="{}",shape="box",style="filled",fillcolor="cyan"];{})",
                                           agent1.get_name(), agent1.get_name(), "\n") +
                               std::format("{} -> I{}{}", agent1.get_name(), num, "\n") +
@@ -95,7 +96,7 @@ TEST_CASE("Network_graph_printer_test")
         stochastic::Agent agent1{"agent1"};
         stochastic::Agent agent2{"agent2"};
         stochastic::Enviroment enviroment{};
-        stochastic::Intrinsic const intrinsic{5};
+        const stochastic::Intrinsic intrinsic{5};
         stochastic::Reaction_rule rr{(agent1 + agent2) >> intrinsic >>= enviroment};
         vessel.add(rr);
         std::ostringstream ss;
@@ -103,7 +104,7 @@ TEST_CASE("Network_graph_printer_test")
 
         ng(vessel, ss);
 
-        auto const expected =
+        const auto expected =
             "digraph {\n" +
             std::format(R"({}[label="{}",shape="box",style="filled",fillcolor="cyan"];{})", agent1.get_name(),
                         agent1.get_name(), "\n") +
