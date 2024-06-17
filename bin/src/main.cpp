@@ -177,17 +177,20 @@ void get_hospitalization_average(int population, int time)
 {
     auto covid_vessel = seihr(population);
     auto peak = -1;
-    auto avg_peak = -1;
+    auto avg_peak = 0.0;
+    auto amount = 100;
 
     const std::vector<std::string> to_observe{"H"};
 
-    for (auto & simulation_result : covid_vessel.simulate(time, to_observe, 100)) {
+    for (auto & simulation_result : covid_vessel.simulate(time, to_observe, amount)) {
         for (auto & [_, observed] : simulation_result) {
             peak = std::max(peak, observed["H"]);
         }
 
-        avg_peak = avg_peak == -1 ? peak : (avg_peak + peak) / 2;
+        avg_peak += peak;
     }
+
+    avg_peak /= amount;
 
     std::cout << "--------------------avg_peak----------------"
               << "\n";
