@@ -16,7 +16,7 @@ static void circadian_rhythm_simulation_1_thread(benchmark::State& state){
 		const auto amount = 10;
 
 		auto vessel = circadian_rhythm();
-		vessel.simulate(end_time, to_observe, amount, 1);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount, 1)) {}
 	}
 }
 BENCHMARK(circadian_rhythm_simulation_1_thread);
@@ -28,7 +28,7 @@ static void circadian_rhythm_simulation_max_thread(benchmark::State& state){
 		const auto amount = 10;
 
 		auto vessel = circadian_rhythm();
-		vessel.simulate(end_time, to_observe, amount);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount)) {}
 	}
 }
 BENCHMARK(circadian_rhythm_simulation_max_thread);
@@ -41,7 +41,7 @@ static void seihr_simulation_1_thread(benchmark::State& state) {
 		const auto amount = 100;
 
 		auto vessel = seihr(population);
-		vessel.simulate(end_time, to_observe, amount, 1);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount, 1)) {}
 	}
 }
 BENCHMARK(seihr_simulation_1_thread);
@@ -54,7 +54,7 @@ static void seihr_simulation_max_thread(benchmark::State& state) {
 		const auto amount = 100;
 
 		auto vessel = seihr(population);
-		vessel.simulate(end_time, to_observe, amount);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount)) {}
 	}
 }
 BENCHMARK(seihr_simulation_max_thread);
@@ -69,7 +69,7 @@ static void exponential_decay_simulation_1_thread(benchmark::State& state){
 		const auto amount = 100;
 
 		auto vessel = exponential_decay(a_amount, b_aomunt, c_amount);
-		vessel.simulate(end_time, to_observe, amount, 1);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount, 1)) {}
 	}
 }
 BENCHMARK(exponential_decay_simulation_1_thread);
@@ -84,7 +84,7 @@ static void exponential_decay_simulation_max_thread(benchmark::State& state){
 		const auto amount = 100;
 
 		auto vessel = exponential_decay(a_amount, b_aomunt, c_amount);
-		vessel.simulate(end_time, to_observe, amount);
+		for (auto _ : vessel.simulate(end_time, to_observe, amount)) {}
 	}
 }
 BENCHMARK(exponential_decay_simulation_max_thread);

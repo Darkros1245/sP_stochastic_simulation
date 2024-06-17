@@ -13,7 +13,6 @@
 #include <coro/coro.hpp>
 #include <coro/generator.hpp>
 #include <algorithm>
-#include <tuple>
 #include <thread>
 #include <random>
 
@@ -43,7 +42,7 @@ namespace stochastic
         // in Covid-19 example without storing entire trajectory data. Record the peak hospitalization values for
         // population sizes of NNJ and NDK . Requirement 4: Implement the stochastic simulation (Alg. 1) of the system
         // using the reaction rules.
-        coro::generator<std::tuple<double, std::unordered_map<Key, int>>> simulate(
+        coro::generator<std::pair<double, std::unordered_map<Key, int>>> simulate(
             int end_time, std::vector<Key> const& to_observe) const
         {
             auto st = this->_st;
@@ -124,15 +123,14 @@ namespace stochastic
         // Requirement 8: Implement support for multiple computer cores by parallelizing the computation of several
         // simulations at the same time. Estimate the likely (average) value of the hospitalized peak over 100
         // simulations.
-        std::vector<std::vector<std::tuple<double, std::unordered_map<Key, int>>>> simulate(
+        coro::generator<std::vector<std::pair<double, std::unordered_map<Key, int>>>> simulate(
             int end_time, std::vector<Key> const& to_observe, size_t amount, size_t thread_amount = 0)
         {
             auto num_threads = (thread_amount == 0) ? std::jthread::hardware_concurrency() : thread_amount;
             Thread_pool thread_pool{num_threads};
-            std::vector<std::vector<std::tuple<double, std::unordered_map<Key, int>>>> simulation_results(amount);
             auto futures = thread_pool.dispatch(
                 [this, end_time, to_observe] {
-                    std::vector<std::tuple<double, std::unordered_map<Key, int>>> simulation_result{};
+                    std::vector<std::pair<double, std::unordered_map<Key, int>>> simulation_result{};
                     for (auto& result : this->simulate(end_time, to_observe)) {
                         simulation_result.push_back(result);
                     }
@@ -141,10 +139,10 @@ namespace stochastic
                 amount);
 
             for (auto& fut : futures) {
-                simulation_results.push_back(fut.get());
+                co_yield(fut.get());
             }
 
-            return simulation_results;
+            co_return;
         }
 
         void print(Printer<Key, Value> const& printer, std::ostream& stream) const { printer(*this, stream); }

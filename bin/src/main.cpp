@@ -28,16 +28,16 @@ void get_hospitalization_average(int population, int time);
 int main()
 {
     auto time = 100;
-    const auto Nsmall = 10000;
-    const auto Nnj = 589755;
-    const auto Ndk = 5822763;
+    //const auto Nsmall = 10000;
+    //const auto Nnj = 589755;
+    //const auto Ndk = 5822763;
 
-    pretty_print_vessel(circadian_rhythm());
-    print_network_graph(circadian_rhythm());
+    //pretty_print_vessel(circadian_rhythm());
+    //print_network_graph(circadian_rhythm());
 
     run_circadian_rhythm_simulation(time);
 
-    run_seihr_simulation(Nsmall, 100);
+    /*run_seihr_simulation(Nsmall, 100);
 
     get_hospitalization_peak(Nsmall, time);
     get_hospitalization_peak(Nnj, time);
@@ -51,7 +51,7 @@ int main()
     // A(0)=100, B(0)=0 , C=2
     run_exponential_decay_simulation(100, 0, 2, time);
     // A(0)=50 , B(0)=50, C=1
-    run_exponential_decay_simulation(50, 50, 1, time);
+    run_exponential_decay_simulation(50, 50, 1, time);*/
 
     return 0;
 }
@@ -157,9 +157,9 @@ void get_hospitalization_peak(int population, int time)
 
     const std::vector<std::string> to_observe{"H"};
 
-    for (size_t i = 0; i < amount; ++i)
+    for (auto & simulation_result : covid_vessel.simulate(time, to_observe, amount))
     {
-        for (auto & [_, observed] : covid_vessel.simulate(time, to_observe)) {
+        for (auto & [_, observed] : simulation_result) {
             peak = std::max(peak, observed["H"]);
         }
     }
